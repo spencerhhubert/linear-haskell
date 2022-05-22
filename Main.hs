@@ -36,5 +36,9 @@ mat4 = [vec1, vec3]
 --     [12559,12865,13171]
 -- ]
 
+mat5 = generate_matrix 100 42 6.9
+mat6 = generate_matrix 42 8 4.2
+mat7 = multiply mat4 mat5
+
 main :: IO ()
-main = print(show mat3)
+main = print(show mat7)

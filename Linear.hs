@@ -1,7 +1,10 @@
 module Linear where
 
+--will need to make these proper data types, but the synatax is so clean this way...
 type Vector a = [a]
 type Matrix a = [[a]]
+
+-- class Tensor a where
 
 dot :: Num a => Vector a -> Vector a -> a
 dot x y = sum (zipWith (*) x y)
@@ -21,8 +24,14 @@ row x i = x !! i
 column :: Matrix a -> Int -> Vector a
 column x j = map (!! j) x
 
-value :: Matrix a -> Int -> Int -> a
-value x i j = (x !! i) !! j
+getValue :: Matrix a -> Int -> Int -> a
+getValue x i j = (x !! i) !! j
+
+setValue :: Matrix a -> Int -> Int -> a -> Matrix a
+setValue x i j a = replace i (replace j a (row x i)) x 
+
+replace :: Int -> a -> [a] -> [a]
+replace pos newVal list = take pos list ++ newVal : drop (pos+1) list
 
 transpose :: Matrix a -> Matrix a
 transpose x = map (column x) [0..((snd $ dimensions x) - 1)]
@@ -44,7 +53,14 @@ multiply x y = group p products where
     m = rows x
     p = columns y
     products = [dot v w | v <- x, w <- (transpose y)]
-    group _ [] = []
-    group n l
-      | n > 0 = (take n l) : (group n (drop n l))
-      | otherwise = error "Negative or zero n"
+
+group :: Int -> [a] -> [[a]]
+group _ [] = []
+group n l = (take n l) : (group n (drop n l)) 
+
+show_matrix :: Show a => Matrix a -> IO ()
+show_matrix m = mapM_ putStrLn (map show m)
+
+generate_matrix :: Int -> Int -> Float -> Matrix Float
+generate_matrix x y z = group y values where
+    values = [z * (fromIntegral $ v + w) | v <- [1..x], w <- [1..y]]
