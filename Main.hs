@@ -15,6 +15,9 @@ mat2 = [vec10, vec11, vec12, vec13, vec14]
 mat3 = multiply mat1 mat2
 mat4 = [vec1, vec3]
 
+mat10 = [vec1]
+mat11 = multiply mat1 mat10
+
 -- mat1 - 3x3:
 -- [
 --     [11,12,13],
