@@ -1,3 +1,4 @@
+module Main where
 import Linear
 
 vec1 = [11..15]

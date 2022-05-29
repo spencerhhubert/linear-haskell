@@ -18,6 +18,7 @@ subtract x y = zipWith (-) x y
 scale :: Num a => Vector a -> a -> Vector a
 scale x c = map (c *) x
 
+{-@ row :: m:(Matrix a) -> {v:Nat | v < (rows m)} -> Vector a @-}
 row :: Matrix a -> Int -> Vector a
 row x i = x !! i
 
