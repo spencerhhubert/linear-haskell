@@ -45,4 +45,4 @@ mat6 = generate_matrix 42 8 4.2
 mat7 = multiply mat4 mat5
 
 main :: IO ()
-main = print(show mat7)
+main = show_matrix mat7
