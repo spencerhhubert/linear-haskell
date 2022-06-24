@@ -1,4 +1,5 @@
 module Linear where
+import System.Random
 
 --will need to make these proper data types, but the synatax is so clean this way...
 type Vector a = [a]
