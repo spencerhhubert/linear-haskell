@@ -1,5 +1,7 @@
 module Main where
-import Linear
+import Vector
+import Matrix
+import MyRandom
 
 vec1 = [11..15]
 vec2 = [12..16]
@@ -16,8 +18,8 @@ mat2 = [vec10, vec11, vec12, vec13, vec14]
 mat3 = multiply mat1 mat2
 mat4 = [vec1, vec3]
 
-mat10 = [vec1]
-mat11 = multiply mat1 mat10
+mat41 = [vec1]
+mat42 = multiply mat1 mat10
 
 -- mat1 - 3x3:
 -- [
@@ -40,9 +42,13 @@ mat11 = multiply mat1 mat10
 --     [12559,12865,13171]
 -- ]
 
-mat5 = generate_matrix 100 42 6.9
-mat6 = generate_matrix 42 8 4.2
+mat5 = generateFloatMatrix 100 42
+mat6 = generateFloatMatrix 42 8
 mat7 = multiply mat4 mat5
 
+mat8 = randomFloatMatrix 3 4
+mat9 = randomFloatMatrix 4 72
+mat10 = multiply mat8 mat9
+
 main :: IO ()
-main = show_matrix mat7
+main = showMatrix mat8
