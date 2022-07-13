@@ -56,3 +56,9 @@ generateFloatMatrix m n = group n values where
 
 mapMatrix :: (a -> b) -> Matrix a -> Matrix b
 mapMatrix f m = map (map f) m
+
+addMatrix :: Num a => Matrix a -> Matrix a -> Matrix a
+addMatrix x y = zipWith add x y
+
+zipWithMatrix :: (a -> b -> c) -> Matrix a -> Matrix b -> Matrix c
+zipWithMatrix f x y = zipWith (zipWith f) x y
