@@ -34,10 +34,14 @@ columns :: Matrix a -> Int
 columns x = snd $ dimensions x
 
 multiply :: Num a => Matrix a -> Matrix a -> Matrix a
-multiply x y = group p products where
-    m = rows x
-    p = columns y
-    products = [dot v w | v <- x, w <- (transpose y)]
+multiply x y
+    | dimensions x == (1,1) = mapMatrix (\v -> v * (grabVal x)) y
+    | dimensions y == (1,1) = mapMatrix (\v -> v * (grabVal y)) x
+    | otherwise = group p products where
+        m = rows x
+        p = columns y
+        products = [dot v w | v <- x, w <- (transpose y)]
+        grabVal scalarMat = ((scalarMat !! 0) !! 0)
 
 showMatrix :: Show a => Matrix a -> IO ()
 showMatrix m = mapM_ putStrLn (map show m)
