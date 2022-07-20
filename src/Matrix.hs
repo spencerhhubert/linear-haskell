@@ -3,7 +3,7 @@ module Matrix where
 import Useful
 import Vector
 
-type Matrix a = [[a]]
+type Matrix a = [Vector a]
 
 {-@ row :: m:(Matrix a) -> {v:Nat | v < (rows m)} -> Vector a @-}
 row :: Matrix a -> Int -> Vector a
@@ -39,6 +39,9 @@ multiply x y = group p products where
     p = columns y
     products = [dot v w | v <- x, w <- (transpose y)]
 
+hadamard :: Num a => Matrix a -> Matrix a -> Matrix a
+hadamard x y = zipWithMatrix (*) x y
+
 showMatrix :: Show a => Matrix a -> IO ()
 showMatrix m = mapM_ putStrLn (map show m)
 
@@ -62,3 +65,4 @@ addMatrix x y = zipWith add x y
 
 zipWithMatrix :: (a -> b -> c) -> Matrix a -> Matrix b -> Matrix c
 zipWithMatrix f x y = zipWith (zipWith f) x y
+

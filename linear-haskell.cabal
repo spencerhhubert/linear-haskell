@@ -2,7 +2,7 @@ cabal-version:      2.4
 version: 0.1
 name:               linear-haskell
 library
-    exposed-modules:  Vector, Matrix, MyRandom
+    exposed-modules:  Vector, Matrix, Tensor, MyRandom
     other-modules: Useful
     build-depends:    base, random
     hs-source-dirs:   src
