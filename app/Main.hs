@@ -1,4 +1,5 @@
 module Main where
+
 import Vector
 import Matrix
 import MyRandom
@@ -50,5 +51,10 @@ mat8 = randomFloatMatrix 3 4
 mat9 = randomFloatMatrix 4 72
 mat10 = multiply mat8 mat9
 
+mat20 = [[3.8]]
+mat21 = [[1.2, 9.8], [345.23, 123.0], [67.2, 99.9]]
+
 main :: IO ()
-main = showMatrix mat8
+main = do
+	showMatrix $ multiply mat20 mat21
+	showMatrix mat7
