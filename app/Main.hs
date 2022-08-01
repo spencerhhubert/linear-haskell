@@ -54,7 +54,12 @@ mat10 = multiply mat8 mat9
 mat20 = [[3.8]]
 mat21 = [[1.2, 9.8], [345.23, 123.0], [67.2, 99.9]]
 
+
+mat30 = transpose [[0,10,20,30]]
+mat31 = [[1,2,3]]
+mat32 = mat30 `multiply` mat31
+
 main :: IO ()
 main = do
-	showMatrix $ multiply mat20 mat21
-	showMatrix mat7
+    putStrLn $ show $ dimensions mat32
+    showMatrix mat32

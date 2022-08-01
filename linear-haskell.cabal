@@ -16,3 +16,12 @@ executable linear-haskell
 
     hs-source-dirs:   app
     default-language: Haskell2010
+
+executable tensor_test 
+    main-is:          Tensor_Test.hs
+    build-depends:
+        base,
+        linear-haskell,
+
+    hs-source-dirs:   app
+    default-language: Haskell2010

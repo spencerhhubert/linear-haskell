@@ -51,7 +51,7 @@ showMatrix m = mapM_ putStrLn (map show m)
 
 generateUniformMatrix :: Int -> Int -> Float -> Matrix Float
 generateUniformMatrix m n x = group n values where
-    values = [x * (fromIntegral $ v + w) | v <- [1..m], w <- [1..n]]
+    values = [x | v <- [1..m], w <- [1..n]]
 
 generateIntMatrix :: Int -> Int -> Matrix Int
 generateIntMatrix m n = group n values where
