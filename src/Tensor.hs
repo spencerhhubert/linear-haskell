@@ -1,5 +1,7 @@
 module Tensor where
 
+import Useful
+
 --a tensor is a list of tensors. a tensor can also bottom out at a value
 data Tensor a = Tensor {values :: [Tensor a]} | Value {value :: a}
     deriving (Eq, Show)
@@ -26,10 +28,17 @@ get (Tensor tens) is
     | length is == 1 = (!!) tens $ head is
     | otherwise = get ((!!) tens $ head is) $ tail is
 
+
 --set the tensor at a certain coordinate
 set :: Tensor a -> Tensor a -> [Int] -> Tensor a
-set (Value val) b _ = b
-set (Tensor tens) b is = Tensor 
+set (Value val) x _ = x
+set (Tensor tens) x [] = error "idk"
+set (Tensor tens) x (i:[]) = Tensor $ setAtList i x tens
+set (Tensor tens) x (i:is) = Tensor $ setAtList i (set (tens !! i) x is) tens
+
+
+
+
 
 --reverse is because we check for broadcastability from the innermost dimension first
 canBroadcast :: Tensor a -> Tensor a -> Bool
@@ -63,15 +72,15 @@ clone (a,b)
 dupe :: Tensor a -> Int -> Tensor a
 dupe ten times = Tensor (take times $ repeat ten)
 
-broadcast :: (Tensor a, Tensor b) -> (Tensor a, Tensor b)
-broadcast (a,b) = step (a,b) $ depths (a,b) where
-        step :: (Tensor a, Tensor b) -> [Int] -> (Tensor a, Tensor b)
-        step (c,d) [] = (c,d)
-        step (c,d) i:is = step (onecast (c,d) i) is
-        onecast :: (Tensor a, Tensor b) -> Int -> (Tensor a, Tensor b)
-        onecast (c,d) i
-            | shape c == shape d = (c,d)
-            | head shape c
+-- broadcast :: (Tensor a, Tensor b) -> (Tensor a, Tensor b)
+-- broadcast (a,b) = step (a,b) $ depths (a,b) where
+--         step :: (Tensor a, Tensor b) -> [Int] -> (Tensor a, Tensor b)
+--         step (c,d) [] = (c,d)
+--         step (c,d) i:is = step (onecast (c,d) i) is
+--         onecast :: (Tensor a, Tensor b) -> Int -> (Tensor a, Tensor b)
+--         onecast (c,d) i
+--             | shape c == shape d = (c,d)
+--             | head shape c
         
 
 
