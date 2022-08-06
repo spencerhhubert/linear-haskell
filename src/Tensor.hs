@@ -106,6 +106,9 @@ dupe (Value val) times = Tensor (take times $ repeat (Value val))
 dupe ten 0 = ten --jank. should "how" return a 1?
 dupe ten times = Tensor (take times $ repeatList $ values ten)
 
+dupe2 :: Tensor a -> Int -> Tensor a
+dupe2 ten times = Tensor $ take times $ repeat ten
+
 --reverse is because we check for broadcastability from the innermost dimension first
 canBroadcast :: Tensor a -> Tensor a -> Bool
 canBroadcast x y = all (==True) (zipWith check (reverse $ shape x) (reverse $ shape y)) where
@@ -123,5 +126,15 @@ ranTen (x:[]) = ran1dTen x where
     rf x = randomFloat x (0,10)
 ranTen (x:xs) = dupe2 (ranTen xs) x where
 
-dupe2 :: Tensor a -> Int -> Tensor a
-dupe2 ten times = Tensor $ take times $ repeat ten
+zipWithTen :: (a -> b -> c) -> Tensor a -> Tensor b -> Tensor c
+zipWithTen f (Value a) (Value b) = Value $ f a b
+zipWithTen f a b
+    | (dim a) /= (dim b) = zipWithTen f (fst $ broadcast (a,b)) (snd $ broadcast (a,b))
+    | otherwise = Tensor $ zipWith (zipWithTen f) (values a) (values b)
+
+--[ten, ten, ten]
+--[ten, ten, ten]
+
+--
+
+

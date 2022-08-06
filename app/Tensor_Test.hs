@@ -18,10 +18,10 @@ ten14 = Tensor [ten11, ten12, ten13] --3x8 matrix
 ten15 = Tensor $ map Value [16..23] --_x8
 ten16 = ranTen [5,2,8,1,11]
 ten17 = ranTen [1,2,8,9,11]
-ten18 = snd $ bc (ten16, ten17)
+ten18 = snd $ broadcast (ten16, ten17)
 ten19 = ranTen [3,8]
 --               x8      3x8
-ten20 = fst $ bc (ten11, ten19)
+ten20 = fst $ broadcast (ten11, ten19)
 
 --from ten14 and ten15
 desired_broadcast01 = (ten14, Tensor [ten15, ten15, ten15])
@@ -41,12 +41,17 @@ d1' = print $ show $ depth t1'
 d2' = print $ show $ depth t2'
 s1' = print $ show $ shape t1'
 s2' = print $ show $ shape t2'
-t1'' = fst $ bc (t1, t2)
-t2'' = snd $ bc (t1, t2)
+t1'' = fst $ broadcast (t1, t2)
+t2'' = snd $ broadcast (t1, t2)
 b1 = print $ show t1''
 b2 = print $ show t2''
 sb1 = print $ show $ shape t1''
 sb2 = print $ show $ shape t2''
+
+zipTestSub1 = ten02
+zipTestSub2 = ten14
+zipTest = zipWithTen (+) ten02 ten14
+printZipTest = print ("Original1 = " ++ (showTensor zipTestSub1) ++ " and Original2 = " ++ (showTensor zipTestSub2) ++ "Output = " ++ (showTensor zipTest))
 
 main :: IO ()
 main = do
@@ -54,10 +59,12 @@ main = do
     -- d2
     -- s1
     -- s2
-    d1'
-    d2'
-    s1'
-    s2'
-    print $ show $ how $ makeSameDepth (t1, t2)
-    sb1
-    sb2
+    -- d1'
+    -- d2'
+    -- s1'
+    -- s2'
+    -- print $ show $ how $ makeSameDepth (t1, t2)
+    -- sb1
+    -- sb2
+    printZipTest
+
