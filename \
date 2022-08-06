@@ -87,8 +87,8 @@ makeSameDepth (a,b)
             times :: Int
             times = abs $ (depth a) - (depth b)
 
-bc :: (Tensor a, Tensor b) -> (Tensor a, Tensor b)
-bc (a,b) = (c,d) where
+broadcast :: (Tensor a, Tensor b) -> (Tensor a, Tensor b)
+broadcast (a,b) = (c,d) where
     expanded = makeSameDepth (a,b)
     a' = fst expanded
     b' = snd expanded
