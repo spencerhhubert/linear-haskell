@@ -36,32 +36,11 @@ set (Tensor tens) x [] = error "idk"
 set (Tensor tens) x (i:[]) = Tensor $ setAtList i x tens
 set (Tensor tens) x (i:is) = Tensor $ setAtList i (set (tens !! i) x is) tens
 
-
 isBottom :: Tensor a -> Bool
 isBottom ten = (dim ten) == 1
 
---2x2x3
---[
--- [[3,4,5],[9,3,2]],
--- [[1,2,3],[3,2,3]]
---]
-
 depths :: (Tensor a, Tensor b) -> [Int]
 depths (a,b) = reverse [1..(max (depth a) (depth b))]
-
---stepUp :: (Tensor a, Tensor b) -> [Int]
---stepUp (a,b) = [once (a,b) i | i <- depths (a,b)] where
---    once (c,d) i = broadcastOneStep ()
-
--- broadcast :: (Tensor a, Tensor b) -> (Tensor a, Tensor b)
--- broadcast (a,b) = step (a,b) $ depths (a,b) where
---         step :: (Tensor a, Tensor b) -> [Int] -> (Tensor a, Tensor b)
---         step (c,d) i:[] = (c,d)
---         step (c,d) i:is = step (onecast (c,d) i) is
---         onecast :: (Tensor a, Tensor b) -> Int -> (Tensor a, Tensor b)
---         onecast (c,d) i
---             | shape c == shape d = (c,d)
---             | head shape c
 
 --this assumes the tensors are same depth
 how :: (Tensor a, Tensor b) -> ([Int], [Int])
