@@ -1,15 +1,10 @@
 # linear-haskell
-A Haskell linear algebra library
+A Haskell library for tensors and linear algebra.
 
 it's so pythonic!
 
-this will need to be updated with proper data types but right now with vectors synonymous with lists and matrices being vectors of vectors, the syntax is really nice.
+Right now the library is split into two parts. The first has a `type Vector a = [a]` and `type Matrix a = [[a]]` and operations for these types. This is practically useless with the existence of the other half, which just has a datatype called `tensor`.
 
-we very simply define vector and matrix as:
+Tensors work like n-dimensional arrays. A tensor can either be a `Value a` or a list of type `Tensor a`. So a tensor can have as much "depth" as you'd like (a tensor of shape [3,2,8] has a depth of 8) and it always bottoms out with `Value`s of type `a`.
 
-	type Vector a = [a]
-	type Matrix a = [[a]]
-
-and then we get all the great build in functions for list processing in haskell. like, for example, applying a function to everything in the matrix is as simply as:
-
-	mapMatrix f m = map (map f) m
+The two most important functions that operate on tensors are `broadcast` and `zipWithTen`. These functions do what you'd expect them to. With them we can construct `add` and `hadamard` (multiplication) like `add x y = zipWithTen (+) x y`.

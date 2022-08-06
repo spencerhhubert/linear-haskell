@@ -132,9 +132,8 @@ zipWithTen f a b
     | (dim a) /= (dim b) = zipWithTen f (fst $ broadcast (a,b)) (snd $ broadcast (a,b))
     | otherwise = Tensor $ zipWith (zipWithTen f) (values a) (values b)
 
---[ten, ten, ten]
---[ten, ten, ten]
+hadamard :: Num a => Tensor a -> Tensor a -> Tensor a
+hadamard x y = zipWithTen (*) x y
 
---
-
-
+add :: Num a => Tensor a -> Tensor a -> Tensor a
+add x y = zipWithTen (+) x y

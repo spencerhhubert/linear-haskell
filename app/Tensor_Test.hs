@@ -4,7 +4,7 @@ import Tensor
 
 ten00 = Value 999
 ten01 = Value 7
-ten02 = Value 3
+ten02 = Value 11
 ten03 = Tensor [ten01, ten02]
 ten04 = Tensor [ten01, ten01, ten02, ten01]
 ten05 = Tensor [ten03, ten04]
@@ -53,6 +53,8 @@ zipTestSub2 = ten14
 zipTest = zipWithTen (+) ten02 ten14
 printZipTest = print ("Original1 = " ++ (showTensor zipTestSub1) ++ " and Original2 = " ++ (showTensor zipTestSub2) ++ "Output = " ++ (showTensor zipTest))
 
+multiplyTest = hadamard ten02 ten14
+
 main :: IO ()
 main = do
     -- d1
@@ -66,5 +68,5 @@ main = do
     -- print $ show $ how $ makeSameDepth (t1, t2)
     -- sb1
     -- sb2
-    printZipTest
+    print $ showTensor multiplyTest
 
