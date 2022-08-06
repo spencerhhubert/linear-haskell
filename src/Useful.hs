@@ -16,3 +16,6 @@ reverseTake i l = takeTail ((length l) - i) l
 
 setAtList :: Int -> a -> [a] -> [a]
 setAtList i x l = (take i l) ++ [x] ++ (tail $ reverseTake i l)
+
+repeatList :: [a] -> [a]
+repeatList l = l ++ repeatList l

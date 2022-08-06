@@ -4,6 +4,7 @@ import System.Random
 import Vector
 import Matrix
 
+--random float in range
 randomFloat :: Int -> (Float, Float) -> Float
 randomFloat gen (min, max) = ((*) initial $ max - min) + min where
     initial = fst (random (mkStdGen gen)) :: Float

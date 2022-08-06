@@ -15,35 +15,49 @@ ten11 = Tensor $ map Value [1..8]
 ten12 = Tensor $ map Value [9..16]
 ten13 = Tensor $ map Value $ [43, 32]++[1..6]
 ten14 = Tensor [ten11, ten12, ten13] --3x8 matrix
-
 ten15 = Tensor $ map Value [16..23] --_x8
+ten16 = ranTen [5,2,8,1,11]
+ten17 = ranTen [1,2,8,9,11]
+ten18 = snd $ bc (ten16, ten17)
+ten19 = ranTen [3,8]
+--               x8      3x8
+ten20 = fst $ bc (ten11, ten19)
 
 --from ten14 and ten15
 desired_broadcast01 = (ten14, Tensor [ten15, ten15, ten15])
 
 actual_broadcast01 = broadcast (ten14, ten15)
 
+t1 = ten16
+t2 = ten17
+d1 = print $ show $ depth t1
+d2 = print $ show $ depth t2
+s1 = print $ show $ shape t1
+s2 = print $ show $ shape t2
+t1' = fst $ makeSameDepth (t1, t2)
+t2' = snd $ makeSameDepth (t1, t2)
+seet2' = print $ show t2'
+d1' = print $ show $ depth t1'
+d2' = print $ show $ depth t2'
+s1' = print $ show $ shape t1'
+s2' = print $ show $ shape t2'
+t1'' = fst $ bc (t1, t2)
+t2'' = snd $ bc (t1, t2)
+b1 = print $ show t1''
+b2 = print $ show t2''
+sb1 = print $ show $ shape t1''
+sb2 = print $ show $ shape t2''
 
 main :: IO ()
 main = do
---     print $ showTensor $ fst desired_broadcast01
---     putStrLn ""
---     print $ showTensor $ snd desired_broadcast01
---     putStrLn ""
---     print $ showTensor $ fst actual_broadcast01 
---     putStrLn ""
---     print $ showTensor $ snd actual_broadcast01
---     putStrLn ""
---     print $ showTensor $ fst (broadcast (ten11, ten01))
---     print $ showTensor $ snd (broadcast (ten11, ten01))
---     -- print $ show $ dim ten11
---     -- print $ show $ isBottom ten11
---     -- print $ show $ isBottom ten14
---     print $ show $ depth ten14
--- --    print $ show $ stepUp (ten14, ten01)
---     print $ show $ get ten14 [1]
---     print $ show $ dim ten14
---     print $ show $ dupe ten14 3
---     print $ show $ dupe ten01 4
-    print $ showTensor ten14
-    print $ showTensor (set ten14 ten00 [2,2])
+    -- d1
+    -- d2
+    -- s1
+    -- s2
+    d1'
+    d2'
+    s1'
+    s2'
+    print $ show $ how $ makeSameDepth (t1, t2)
+    sb1
+    sb2
